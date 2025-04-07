@@ -5,23 +5,14 @@ import android.graphics.Color
 import android.graphics.Paint
 
 class Bird(x: Float, y: Float) : GameObject(x, y, 60f, 60f) {
-
-    private var velocity = 0f
-    private val gravity = 1.5f
-    private val flapPower = -20f
+    private val gravity = 2f
 
     fun flap() {
-        velocity = flapPower
+        y -= 100f
     }
 
     override fun update() {
-        velocity += gravity
-        y += velocity
-
-        if (y > 1800f) {
-            y = 1800f
-            velocity = 0f
-        }
+        y += gravity
     }
 
     override fun draw(canvas: Canvas, paint: Paint) {

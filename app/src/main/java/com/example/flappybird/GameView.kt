@@ -3,6 +3,7 @@ package com.example.flappybird
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
@@ -10,17 +11,19 @@ import android.view.SurfaceView
 class GameView @JvmOverloads constructor (context: Context, attributes: AttributeSet? = null, defStyleAttr: Int = 0): SurfaceView(context, attributes,defStyleAttr), SurfaceHolder.Callback, Runnable {
     private lateinit var thread: Thread
     private var drawing = false
-    lateinit var canvas : Canvas
-    val backgroundPaint = Paint()
-    val textPaint = Paint()
+    var canvas = Canvas()
+    val paint = Paint()
     var screenWidth = 0f
     var screenHeight = 0f
     var totalElapsedTime = 0.0
 
+
+    var allObjects : AllObjects
+
+
     init {
-        backgroundPaint.color = Color.BLUE
-        textPaint.textSize= screenWidth/20
-        textPaint.color = Color.BLACK
+        allObjects = AllObjects(canvas, holder)
+
     }
 
     override fun onSizeChanged(w:Int, h:Int, oldw:Int, oldh:Int) {
@@ -29,29 +32,43 @@ class GameView @JvmOverloads constructor (context: Context, attributes: Attribut
         screenHeight = h.toFloat()
     }
 
-    private fun draw() {
-        if (holder.surface.isValid) {
-            canvas = holder.lockCanvas()
-            canvas.drawColor(Color.CYAN)
-            holder.unlockCanvasAndPost(canvas)
-        }
-
-    }
-
-    fun updatePositions(elapsedTimeMS: Double) {
-        val interval = elapsedTimeMS / 1000.0
-    }
-
     override fun run() {
         var previousFrameTime = System.currentTimeMillis()
         while (drawing) {
             val currentTime = System.currentTimeMillis()
-            var elapsedTimeMS:Double=(currentTime-previousFrameTime).toDouble()
+            var elapsedTimeMS: Double = (currentTime - previousFrameTime).toDouble()
             totalElapsedTime += elapsedTimeMS / 1000.0
             updatePositions(elapsedTimeMS)
             draw()
             previousFrameTime = currentTime
         }
+    }
+
+    private fun draw() {
+        if (allObjects.holder.surface.isValid) {
+            allObjects.canvas = allObjects.holder.lockCanvas()
+            /* All drawings here */
+
+            allObjects.canvas.drawColor(Color.CYAN)
+            allObjects.bird.draw(allObjects.canvas, paint)
+            allObjects.pipe.draw(allObjects.canvas, paint)
+
+            /* End drawings */
+            allObjects.holder.unlockCanvasAndPost(allObjects.canvas)
+        }
+    }
+
+    fun updatePositions(elapsedTimeMS: Double) {
+        val interval = elapsedTimeMS / 1000.0
+        allObjects.bird.update()
+        allObjects.pipe.update()
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        if (event?.action == MotionEvent.ACTION_DOWN) {
+            allObjects.bird.flap()
+        }
+        return true
     }
 
 
