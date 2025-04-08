@@ -1,17 +1,28 @@
 package com.example.flappybird
 
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
+import android.graphics.RectF
+import android.util.Log
+import kotlin.random.Random
 
-class Pipe(x: Float, y: Float, width: Float, height: Float) : GameObject(x, y, width, height) {
+class Pipe : Obstacle() {
+    private val pipe_speed = 5f
+    val pipe_width = 50f
+    private val upperShapeHeight = 200f + (0..600).random()
 
-    override fun update() {
-        // Pour l’instant, rien : les tuyaux sont fixes
+    private val upperShape = RectF(x_pos, 0f, x_pos + pipe_width,  upperShapeHeight)
+    private val lowerShape = RectF(x_pos, upperShapeHeight + 500, x_pos + pipe_width,  10000f)
+
+    init {
+        allShapesForOnePipe.add(upperShape)
+        allShapesForOnePipe.add(lowerShape)
+        Log.d("Pipe", Constants.screenHeight.toString())
     }
 
-    override fun draw(canvas: Canvas, paint: Paint) {
-        paint.color = Color.GREEN
-        canvas.drawRect(x, y, x + width, y + height, paint)
+    fun update() {
+       x_pos -= pipe_speed
+        for (shape in allShapesForOnePipe){
+            shape.offset(-pipe_speed, 0f)
+        }
     }
 }
+

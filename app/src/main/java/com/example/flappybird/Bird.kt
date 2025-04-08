@@ -5,13 +5,17 @@ import android.graphics.Color
 import android.graphics.Paint
 
 class Bird(x: Float, y: Float) : GameObject(x, y, 60f, 60f) {
-    private val gravity = 2f
+    private val gravity = 5f
+    private val jumpPower = 200f
 
-    fun flap() {
-        y -= 100f
+    fun jump() {
+        y -= jumpPower
     }
 
     override fun update() {
+        if (y - 60 > Constants.screenHeight) {
+            y -= gravity
+        }
         y += gravity
     }
 
