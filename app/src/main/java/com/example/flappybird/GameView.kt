@@ -18,14 +18,12 @@ class GameView @JvmOverloads constructor (context: Context, attributes: Attribut
     var screenWidth = 0f
     var screenHeight = 0f
     var totalElapsedTime = 0.0
-
+    var endGame = false
 
     var allObjects : AllObjects
 
-
     init {
         allObjects = AllObjects(canvas, holder)
-
     }
 
     override fun onSizeChanged(w:Int, h:Int, oldw:Int, oldh:Int) {
@@ -44,11 +42,12 @@ class GameView @JvmOverloads constructor (context: Context, attributes: Attribut
 
             updatePositions(elapsedTimeMS)
 
-
-
+            if (returnEndGame()){
+                /* Tu mets les bails de GameOver ICI */
+                pause()
+            }
 
             previousFrameTime = currentTime
-
 
             draw()
         }
@@ -56,6 +55,7 @@ class GameView @JvmOverloads constructor (context: Context, attributes: Attribut
 
     fun updatePositions(elapsedTimeMS: Double) {
         val interval = elapsedTimeMS / 1000.0
+
         allObjects.bird.update()
 
 
@@ -63,17 +63,27 @@ class GameView @JvmOverloads constructor (context: Context, attributes: Attribut
         if (elapsedTimeMS > 10){
             for (pipe in allObjects.ListOfPipes) {
                 pipe.update()
-
             }
         }
 
         if (allObjects.ListOfPipes.last().x_pos < allObjects.bird.x){
             createPipe()
+            allObjects.score.yourScore += 1
         }
+
 
         if (allObjects.ListOfPipes.first().x_pos + allObjects.ListOfPipes.first().pipe_width < 0){
             allObjects.ListOfPipes.removeAt(0)
         }
+    }
+
+    private fun returnEndGame(): Boolean {
+        for (pipe in allObjects.ListOfPipes){
+            if (allObjects.bird.returnCollision(pipe)){
+                return true
+            }
+        }
+        return false
     }
 
     protected fun createPipe(){
@@ -97,6 +107,7 @@ class GameView @JvmOverloads constructor (context: Context, attributes: Attribut
             for (pipe in allObjects.ListOfPipes) {
                 pipe.draw(allObjects.canvas)
             }
+            allObjects.score.draw(allObjects.canvas, paint)
 
             /* End drawings */
             allObjects.holder.unlockCanvasAndPost(allObjects.canvas)
@@ -112,7 +123,6 @@ class GameView @JvmOverloads constructor (context: Context, attributes: Attribut
         drawing = true
         thread = Thread(this)
         thread.start()
-
     }
     override fun surfaceChanged(holder: SurfaceHolder, format: Int,
                                 width: Int, height: Int) {}

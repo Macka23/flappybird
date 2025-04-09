@@ -9,5 +9,5 @@ class AllObjects(var canvas: Canvas, val holder: SurfaceHolder) {
     var ListOfPipes = mutableListOf<Pipe>().apply {
         add(Pipe())
     }
-
+    val score = Score(50f, 140f)
 }

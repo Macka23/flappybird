@@ -1,5 +1,6 @@
 package com.example.flappybird
 
+import android.graphics.Color
 import android.graphics.RectF
 import android.util.Log
 import kotlin.random.Random
@@ -15,11 +16,11 @@ class Pipe : Obstacle() {
     init {
         allShapesForOnePipe.add(upperShape)
         allShapesForOnePipe.add(lowerShape)
-        Log.d("Pipe", Constants.screenHeight.toString())
+        color = Color.GREEN
     }
 
     fun update() {
-       x_pos -= pipe_speed
+        x_pos -= pipe_speed
         for (shape in allShapesForOnePipe){
             shape.offset(-pipe_speed, 0f)
         }
