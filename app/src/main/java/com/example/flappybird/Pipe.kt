@@ -2,8 +2,6 @@ package com.example.flappybird
 
 import android.graphics.Color
 import android.graphics.RectF
-import android.util.Log
-import kotlin.random.Random
 
 class Pipe : Obstacle() {
     private val pipe_speed = 5f
