@@ -3,42 +3,26 @@ package com.example.flappybird
 import android.content.Intent
 import android.content.Context
 import android.graphics.*
-import android.os.Build
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import androidx.annotation.RequiresApi
 
-class GameView @JvmOverloads constructor (context: Context, attributes: AttributeSet? = null, defStyleAttr: Int = 0): SurfaceView(context, attributes,defStyleAttr), SurfaceHolder.Callback, Runnable {
+open class GameView @JvmOverloads constructor (context: Context, attributes: AttributeSet? = null, defStyleAttr: Int = 0): SurfaceView(context, attributes,defStyleAttr), SurfaceHolder.Callback, Runnable {
     private lateinit var thread: Thread
     private var drawing = false
-    var canvas = Canvas()
-    val paint = Paint()
-    var screenWidth = 0f
-    var screenHeight = 0f
-    var totalElapsedTime = 0.0
-    var endGame = false
+    private var canvas = Canvas()
+    private val paint = Paint()
+    private var totalElapsedTime = 0.0
 
-    var allObjects : AllObjects
-
-    init {
-        allObjects = AllObjects(canvas, holder)
-    }
-
-    override fun onSizeChanged(w:Int, h:Int, oldw:Int, oldh:Int) {
-        super.onSizeChanged(w, h, oldw, oldh)
-        screenWidth = w.toFloat()
-        screenHeight = h.toFloat()
-    }
+    private var allObjects : AllObjects = AllObjects(canvas, holder)
 
     override fun run() {
         var previousFrameTime = System.currentTimeMillis()
         while (drawing) {
             // For Thread
             val currentTime = System.currentTimeMillis()
-            var elapsedTimeMS: Double = (currentTime - previousFrameTime).toDouble()
+            val elapsedTimeMS: Double = (currentTime - previousFrameTime).toDouble()
             totalElapsedTime += elapsedTimeMS / 1000.0
 
             updatePositions(elapsedTimeMS)
@@ -60,9 +44,7 @@ class GameView @JvmOverloads constructor (context: Context, attributes: Attribut
         context.startActivity(intent)
     }
 
-    fun updatePositions(elapsedTimeMS: Double) {
-        val interval = elapsedTimeMS / 1000.0
-
+    private fun updatePositions(elapsedTimeMS: Double) {
         allObjects.bird.update()
 
 
@@ -93,7 +75,7 @@ class GameView @JvmOverloads constructor (context: Context, attributes: Attribut
         return false
     }
 
-    protected fun createPipe(){
+    private fun createPipe(){
         allObjects.ListOfPipes.add(Pipe())
     }
 
@@ -135,11 +117,11 @@ class GameView @JvmOverloads constructor (context: Context, attributes: Attribut
                                 width: Int, height: Int) {}
 
     override fun surfaceCreated(holder: SurfaceHolder) {
-        resume()  // Lance le thread quand la surface est prête
+        resume()
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {
-        pause()  // Arrête le thread lorsque la surface est détruite
+        pause()
     }
 
 
