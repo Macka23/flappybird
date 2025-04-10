@@ -20,9 +20,9 @@ class GameOverActivity : AppCompatActivity() {
         }
 
         mainMenuButton.setOnClickListener {
-            //val intent = Intent(this, MainMenuActivity::class.java)
-            //startActivity(intent)
-            //finish()
+            val intent = Intent(this, MainMenuActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }
