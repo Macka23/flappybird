@@ -1,5 +1,6 @@
 package com.example.flappybird
 
+import android.content.Intent
 import android.content.Context
 import android.graphics.*
 import android.os.Build
@@ -44,13 +45,19 @@ class GameView @JvmOverloads constructor (context: Context, attributes: Attribut
 
             if (returnEndGame()){
                 /* Tu mets les bails de GameOver ICI */
-                pause()
+                gameOver()
+                //pause()
             }
 
             previousFrameTime = currentTime
 
             draw()
         }
+    }
+
+    fun gameOver(){
+        val intent = Intent(context, GameOverActivity::class.java)
+        context.startActivity(intent)
     }
 
     fun updatePositions(elapsedTimeMS: Double) {
