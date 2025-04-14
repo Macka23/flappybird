@@ -4,10 +4,10 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
 
-abstract class GameObject(var x: Float, protected var y: Float, protected var width: Float, protected var height: Float) : Drawable {
+abstract class GameObject(var x: Float, var y: Float, protected var width: Float, protected var height: Float) : Drawable {
     lateinit var bodyObject : RectF
 
-    abstract fun update()
+    abstract fun update(time: Int)
 
     fun returnCollision(obstacle: Obstacle): Boolean{
         for (shape in obstacle.allShapesForOnePipe){
@@ -15,9 +15,9 @@ abstract class GameObject(var x: Float, protected var y: Float, protected var wi
                 return true
             }
         }
-//        if (y < 0 || y > Constants.screenHeight){
-//            return true
-//        }
+        if (y < 0 || y > Constants.screenHeight){
+            return true
+        }
         return false
     }
 }

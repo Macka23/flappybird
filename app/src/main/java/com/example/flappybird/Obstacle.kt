@@ -6,6 +6,7 @@ import android.graphics.RectF
 
 abstract class Obstacle {
     var x_pos = Constants.screenWidth
+    open val width : Float = 0f
     private val paint = Paint()
     protected var color = 0
     var allShapesForOnePipe = ArrayList<RectF>()
@@ -17,4 +18,5 @@ abstract class Obstacle {
             canvas.drawRect(shape, paint)
         }
     }
+    abstract fun update()
 }

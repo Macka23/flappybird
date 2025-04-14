@@ -6,25 +6,26 @@ import android.graphics.Paint
 import android.graphics.RectF
 
 class Bird(x: Float, y: Float) : GameObject(x, y, 60f, 60f) {
-    private val gravity = 5f
-    private val jumpPower = 200f
+    private val gravity = 0.05f
+    private val jumpPower = 0.1f
     private val offsetHitbox = 10
-
+    var ascendingState = false
+    private val acceleration = 0.01f // Accélération constante
+    var oldY = y
 
     init {
         bodyObject = RectF(x - width + offsetHitbox, y - height + offsetHitbox, x + width - offsetHitbox, y + height - offsetHitbox)
     }
 
-    fun jump() {
-        y -= jumpPower
-        updateHitbox()
-    }
-
-    override fun update() {
-        if (y > Constants.screenHeight){
-            y -= gravity
+    override fun update(time: Int) {
+        if (ascendingState && y > oldY - 300) {
+            y -= jumpPower * time * time / 2
+        } else {
+            ascendingState = false
+            oldY = y
+            y += (gravity) * time * time / 2
         }
-        y += gravity
+
         updateHitbox()
     }
 
