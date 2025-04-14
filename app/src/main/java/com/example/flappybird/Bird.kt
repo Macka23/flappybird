@@ -21,6 +21,9 @@ class Bird(x: Float, y: Float) : GameObject(x, y, 60f, 60f) {
     }
 
     override fun update() {
+        if (y > Constants.screenHeight){
+            y -= gravity
+        }
         y += gravity
         updateHitbox()
     }
