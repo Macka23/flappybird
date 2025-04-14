@@ -10,4 +10,16 @@ class AllObjects(var context: Context, var canvas: Canvas, val holder: SurfaceHo
         add(Pipe())
     }
     val score = Score
+    private var scoreObserver: ScoreObserver? = null
+
+    init {
+        score.clearObservers()
+        println("Initialisation")
+        Score.yourScore = 0
+        ListOfPipes.clear()
+        ListOfPipes.add(Pipe())
+
+        scoreObserver = ScoreObserver(context)
+        score.addObserver(scoreObserver!!)
+    }
 }
