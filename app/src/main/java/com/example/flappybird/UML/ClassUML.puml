@@ -5,18 +5,12 @@ class GameView {
     - thread: Thread
     - drawing: Boolean
     - canvas: Canvas
-    - paint: Paint
     - allObjects: AllObjects
 
     + run()
-    + gameOver()
-    + updatePositions(elapsedTimeMS: Double)
-    + returnEndGame(): Boolean
-    + createPipe()
-    + onTouchEvent(event: MotionEvent?): Boolean
-    + draw()
     + pause()
     + resume()
+    + onTouchEvent(event: MotionEvent?): Boolean
 }
 
 class AllObjects {
@@ -31,10 +25,11 @@ class AllObjects {
 class Bird {
     - x: Float
     - y: Float
+    - ascendingState: Boolean
 
     + update()
-    + draw(canvas: Canvas, paint: Paint)
     + jump()
+    + draw(canvas: Canvas, paint: Paint)
     + returnCollision(pipe: Obstacle): Boolean
 }
 
@@ -49,33 +44,24 @@ class Pipe {
 class PipeMoving {
 }
 
-class PipeFactory {
-    + createPipe(type: PipeType): Obstacle
-}
-
 class Score {
     - yourScore: Int
-    - textPaint: Paint
 
     + update()
     + draw(canvas: Canvas, paint: Paint)
 }
 
-class GameRun {
-    - allObjects: AllObjects
-    - totalElapsedTime: Double
-    - previousFrameTime: Long
+class ScoreObserver {
+    - mediaPlayer: MediaPlayer?
 
-    + run()
-    + gameOver()
-    + updatePositions(elapsedTimeMS: Double)
-    + returnEndGame(): Boolean
-    + createPipe()
+    + onScoreChanged(score: Int)
+    + onGameOver()
 }
 
-enum PipeType {
-    STATIC
-    MOVING
+class GameRun {
+    - allObjects: AllObjects
+
+    + run()
 }
 
 GameView --> AllObjects
@@ -84,6 +70,6 @@ AllObjects --> Score
 AllObjects --> Obstacle
 Obstacle <|-- Pipe
 Obstacle <|-- PipeMoving
-PipeFactory --> Obstacle
+AllObjects --> ScoreObserver
 GameRun --> AllObjects
 @enduml

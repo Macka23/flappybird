@@ -1,4 +1,4 @@
-package com.example.flappybird
+package com.example.flappybird.Constants
 
 import android.content.res.Resources
 

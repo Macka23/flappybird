@@ -1,4 +1,4 @@
-package com.example.flappybird
+package com.example.flappybird.Interfaces
 
 interface Observable {
     fun addObserver(observer: GameObserver)

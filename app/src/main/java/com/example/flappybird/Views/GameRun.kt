@@ -1,7 +1,9 @@
-package com.example.flappybird
+package com.example.flappybird.Views
 
 import android.content.Intent
 import android.os.SystemClock
+import com.example.flappybird.Activities.GameOverActivity
+import com.example.flappybird.GameObjects.AllObjects
 
 class GameRun(val allObjects: AllObjects) {
     private var previousFrameTime: Long = 0
@@ -17,7 +19,7 @@ class GameRun(val allObjects: AllObjects) {
             previousFrameTime = currentTime
         }
 
-        if (SystemClock.currentThreadTimeMillis() > 100) {
+        if (SystemClock.currentThreadTimeMillis() > 200) {
             allObjects.bird.update(elapsedTimeMS.toInt())
         }
 
@@ -36,8 +38,9 @@ class GameRun(val allObjects: AllObjects) {
         }
     }
 
-    fun gameOver(){
+    private fun gameOver(){
         val intent = Intent(allObjects.context, GameOverActivity::class.java)
+        intent.putExtra("score", allObjects.score.yourScore)
         allObjects.context.startActivity(intent)
     }
 
@@ -54,8 +57,9 @@ class GameRun(val allObjects: AllObjects) {
         if (allObjects.score.yourScore < 3){
             allObjects.ListOfPipes.add(PipeFactory.createPipe(PipeType.STATIC))
         }
+
         else {
-            allObjects.ListOfPipes.add(PipeMoving())
+            allObjects.ListOfPipes.add(PipeFactory.createPipe(PipeType.MOVING))
         }
     }
 }

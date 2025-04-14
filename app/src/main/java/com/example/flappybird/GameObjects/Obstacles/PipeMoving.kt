@@ -1,11 +1,11 @@
-package com.example.flappybird
+package com.example.flappybird.GameObjects.Obstacles
 
 import android.graphics.Color
 import android.graphics.RectF
+import com.example.flappybird.Constants.Constants
 
 class PipeMoving: Obstacle() {
     private val pipe_speed_x = 5f
-    override val width = 50f
     private val upperShapeHeight = 200f + (0..600).random()
     private val pipeSpeedY = 5f
     private var inverter = listOf(-1, 1).random().toFloat()

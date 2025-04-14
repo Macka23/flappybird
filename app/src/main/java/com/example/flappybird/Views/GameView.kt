@@ -1,12 +1,12 @@
-package com.example.flappybird
+package com.example.flappybird.Views
 
-import android.content.Intent
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import com.example.flappybird.GameObjects.AllObjects
 
 open class GameView @JvmOverloads constructor (context: Context, attributes: AttributeSet? = null, defStyleAttr: Int = 0): SurfaceView(context, attributes,defStyleAttr), SurfaceHolder.Callback, Runnable {
     private lateinit var thread: Thread
@@ -19,7 +19,6 @@ open class GameView @JvmOverloads constructor (context: Context, attributes: Att
 
 
     override fun run() {
-        allObjects.score.yourScore = 0
         while (drawing) {
             gameRun.run()
             gameDisplay.draw()
@@ -28,6 +27,7 @@ open class GameView @JvmOverloads constructor (context: Context, attributes: Att
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         if (event?.action == MotionEvent.ACTION_DOWN) {
+            allObjects.bird.oldY = allObjects.bird.y
             allObjects.bird.ascendingState = true
         }
         return true

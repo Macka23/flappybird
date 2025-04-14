@@ -1,11 +1,10 @@
-package com.example.flappybird
+package com.example.flappybird.GameObjects.Obstacles
 
 import android.graphics.Color
 import android.graphics.RectF
 
 class Pipe : Obstacle() {
     private val pipe_speed = 5f
-    override val width = 50f
     private val upperShapeHeight = 200f + (0..600).random()
 
     private val upperShape = RectF(x_pos, 0f, x_pos + width,  upperShapeHeight)

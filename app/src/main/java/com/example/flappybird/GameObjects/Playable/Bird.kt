@@ -1,9 +1,10 @@
-package com.example.flappybird
+package com.example.flappybird.GameObjects.Playable
 
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
+import com.example.flappybird.GameObjects.GameObject
 
 class Bird(x: Float, y: Float) : GameObject(x, y, 60f, 60f) {
     private val gravity = 0.05f

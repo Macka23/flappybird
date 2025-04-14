@@ -1,39 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#AA000000"
-    android:gravity="center">
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#AA000000"
+        android:gravity="center">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_gravity="center">
-
-        <TextView
-            android:id="@+id/gameOverText"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:text="Game Over"
-            android:textColor="#FFFFFF"
-            android:textSize="32sp" />
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_gravity="center">
 
-        <Button
-            android:id="@+id/retryButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Retry"
-            android:layout_marginBottom="10dp" />
+            <TextView
+                android:id="@+id/gameOverText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="Game Over"
+                android:textColor="#FFFFFF"
+                android:textSize="32sp" />
 
-        <Button
-            android:id="@+id/mainMenuButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Main Menu" />
+            <TextView
+                android:id="@+id/finalScoreText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="Score: 0"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/retryButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Retry"
+                android:layout_marginBottom="10dp" />
+
+            <Button
+                android:id="@+id/mainMenuButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Main Menu" />
+
+        </LinearLayout>
+
 </FrameLayout>
-

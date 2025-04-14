@@ -1,4 +1,4 @@
-package com.example.flappybird
+package com.example.flappybird.Interfaces
 
 import android.graphics.Canvas
 import android.graphics.Paint

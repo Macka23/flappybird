@@ -1,4 +1,4 @@
-package com.example.flappybird
+package com.example.flappybird.Interfaces
 
 interface GameObserver {
     fun onScoreChanged(score: Int)

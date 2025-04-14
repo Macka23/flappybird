@@ -1,17 +1,19 @@
-package com.example.flappybird
+package com.example.flappybird.GameObjects.Score
 
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import com.example.flappybird.GameObjects.GameObject
+import com.example.flappybird.Interfaces.GameObserver
+import com.example.flappybird.Interfaces.Observable
 
-object Score : GameObject(x = 50f, y = 140f, width = 0f, height = 0f), Observable  {
+object Score : GameObject(x = 50f, y = 140f, width = 0f, height = 0f), Observable {
     var yourScore = 0
     private val textPaint = Paint()
     private val observers = mutableListOf<GameObserver>()
 
     override fun update(t: Int) {
         yourScore += 1
-        println("update")
         notifyObservers()
     }
 

@@ -1,4 +1,8 @@
-package com.example.flappybird
+package com.example.flappybird.Views
+
+import com.example.flappybird.GameObjects.Obstacles.Obstacle
+import com.example.flappybird.GameObjects.Obstacles.Pipe
+import com.example.flappybird.GameObjects.Obstacles.PipeMoving
 
 class PipeFactory {
     companion object {

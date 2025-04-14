@@ -1,8 +1,8 @@
-package com.example.flappybird
+package com.example.flappybird.Views
 
-import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import com.example.flappybird.GameObjects.AllObjects
 
 class GameDisplay(val allObjects : AllObjects) {
     private val paint = Paint()
