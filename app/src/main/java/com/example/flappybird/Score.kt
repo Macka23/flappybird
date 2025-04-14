@@ -22,6 +22,10 @@ object Score : GameObject(x = 50f, y = 140f, width = 0f, height = 0f), Observabl
         canvas.drawText(scoreToString, x, y, textPaint)
     }
 
+    fun clearObservers() {
+        observers.clear()
+    }
+
     override fun addObserver(observer: GameObserver) {
         if (!observers.contains(observer)) {
             observers.add(observer)
@@ -30,10 +34,6 @@ object Score : GameObject(x = 50f, y = 140f, width = 0f, height = 0f), Observabl
 
     override fun removeObserver(observer: GameObserver) {
         observers.remove(observer)
-    }
-
-    fun clearObservers() {
-        observers.clear()
     }
 
     override fun notifyObservers() {
