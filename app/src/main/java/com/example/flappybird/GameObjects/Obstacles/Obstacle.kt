@@ -7,6 +7,7 @@ import com.example.flappybird.Constants.Constants
 
 abstract class Obstacle {
     var x_pos = Constants.screenWidth
+    var y_pos = 0f
     open val width : Float = 100f
     private val paint = Paint()
     protected var color = 0

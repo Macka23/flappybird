@@ -3,10 +3,12 @@ package com.example.flappybird.Views
 import android.content.Intent
 import android.os.SystemClock
 import com.example.flappybird.Activities.GameOverActivity
+import com.example.flappybird.Constants.Constants
 import com.example.flappybird.GameObjects.AllObjects
 
 class GameRun(val allObjects: AllObjects) {
     private var previousFrameTime: Long = 0
+    private var gameMode : PipeType = PipeType.STATIC
 
     open fun run(){
         val currentTime = System.currentTimeMillis()
@@ -22,20 +24,34 @@ class GameRun(val allObjects: AllObjects) {
         if (SystemClock.currentThreadTimeMillis() > 200) {
             allObjects.bird.update(elapsedTimeMS.toInt())
         }
+        if (gameMode == PipeType.STATIC || gameMode == PipeType.MOVING) {
+            if (allObjects.ListOfPipes.last().x_pos < allObjects.bird.x) {
+                createPipe()
+                allObjects.score.update(elapsedTimeMS.toInt())
+            }
 
-        if (allObjects.ListOfPipes.last().x_pos < allObjects.bird.x){
-            createPipe()
-            allObjects.score.update(elapsedTimeMS.toInt())
+
+            if (allObjects.ListOfPipes.first().x_pos + allObjects.ListOfPipes.first().width < 0) {
+                allObjects.ListOfPipes.removeAt(0)
+            }
         }
-
-
-        if (allObjects.ListOfPipes.first().x_pos + allObjects.ListOfPipes.first().width < 0){
-            allObjects.ListOfPipes.removeAt(0)
+        else if (gameMode == PipeType.BLOC) {
+            if (allObjects.ListOfPipes.last().y_pos > allObjects.bird.y) {
+                createPipe()
+                allObjects.score.update(elapsedTimeMS.toInt())
+            }
+            if (allObjects.ListOfPipes.first().y_pos + allObjects.ListOfPipes.first().width > Constants.screenHeight) {
+                allObjects.ListOfPipes.removeAt(0)
+            }
         }
 
         if (returnEndGame()){
             gameOver()
         }
+    }
+
+    fun setTime() {
+        previousFrameTime = SystemClock.uptimeMillis()
     }
 
     private fun gameOver(){
@@ -54,12 +70,14 @@ class GameRun(val allObjects: AllObjects) {
     }
 
     private fun createPipe(){
-        if (allObjects.score.yourScore < 3){
-            allObjects.ListOfPipes.add(PipeFactory.createPipe(PipeType.STATIC))
+        if (allObjects.score.yourScore >= 3){
+            gameMode = PipeType.MOVING
+        }
+        if (allObjects.score.yourScore >= 9){
+            gameMode = PipeType.BLOC
         }
 
-        else {
-            allObjects.ListOfPipes.add(PipeFactory.createPipe(PipeType.MOVING))
-        }
+        allObjects.ListOfPipes.add(PipeFactory.createPipe(gameMode))
+
     }
 }

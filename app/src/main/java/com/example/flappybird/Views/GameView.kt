@@ -19,6 +19,7 @@ open class GameView @JvmOverloads constructor (context: Context, attributes: Att
 
 
     override fun run() {
+        gameRun.setTime()
         while (drawing) {
             gameRun.run()
             gameDisplay.draw()
