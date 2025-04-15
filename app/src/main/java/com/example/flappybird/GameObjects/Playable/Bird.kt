@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import com.example.flappybird.GameObjects.GameObject
+import com.example.flappybird.Views.SkinManager
 
 class Bird(x: Float, y: Float) : GameObject(x, y, 60f, 60f) {
     private val gravity = 0.05f
@@ -35,7 +36,7 @@ class Bird(x: Float, y: Float) : GameObject(x, y, 60f, 60f) {
     }
 
     override fun draw(canvas: Canvas, paint: Paint) {
-        paint.color = Color.YELLOW
+        paint.color = SkinManager.getCurrentColor()
         canvas.drawCircle(x, y, width, paint)
         /* Hitbox testing */
 //        paint.style = Paint.Style.STROKE
