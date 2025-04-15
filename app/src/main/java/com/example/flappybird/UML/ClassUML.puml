@@ -2,10 +2,13 @@
 ' Diagramme UML des classes du projet FlappyBird
 
 class GameView {
+    "constuctor" GameView(context: Context, attributes: AttributeSet?, defStyleAttr: Int)
     - thread: Thread
     - drawing: Boolean
     - canvas: Canvas
     - allObjects: AllObjects
+    - gameRun: GameRun
+    - gameDisplay: GameDisplay
 
     + run()
     + pause()
@@ -14,41 +17,121 @@ class GameView {
 }
 
 class AllObjects {
-    - context: Context
-    - canvas: Canvas
-    - holder: SurfaceHolder
-    - bird: Bird
-    - ListOfPipes: MutableList<Obstacle>
-    - score: Score
+    "constuctor" AllObjects (context: Context, var canvas: Canvas, holder: SurfaceHolder)
+    + bird: Bird
+    + ListOfPipes: MutableList<Obstacle>()
+    + score: Score
+    + scoreObserver: ScoreObserver
+}
+
+class GameRun {
+    - allObjects: AllObjects
+    - previousFrameTime: Long
+    - gameMode: PipeType
+
+    -gameOver()
+    -returnEndGame():Boolean
+    -createPipe()
+    + setTime()
+    + run()
+}
+
+class GameDisplay {
+    - allObjects: AllObjects
+    - paint: Paint
+    + draw()
+}
+
+abstract class GameObject {
+    + x: Float
+    + y: Float
+    # width: Float
+    # height: Float
+
+    + update(time: Int)
+    + returnCollision(obstacle: Obstacle): Boolean
 }
 
 class Bird {
-    - x: Float
-    - y: Float
-    - ascendingState: Boolean
+    + ascendingState: Boolean
+    + oldY: Float
+    - gravity: Float
+    - jumpPower: Float
 
-    + update()
-    + jump()
+    -updateHitBox()
+    + update(time: Int)
     + draw(canvas: Canvas, paint: Paint)
-    + returnCollision(pipe: Obstacle): Boolean
+}
+
+class Score {
+    + yourScore: Int
+    - textPaint: Paint
+    - observers: MutableList<GameObserver>
+
+    + update(t: Int)
+    + draw(canvas: Canvas, paint: Paint)
+    + addObserver(observer: GameObserver)
+    + removeObserver(observer: GameObserver)
+    + notifyObservers()
+    + clearObservers()
 }
 
 abstract class Obstacle {
+    - Xpos: Float
+    - Ypos: Float
+    - width: Float
+    - allShapesForOnePipe: ArrayList<RectF>
+
     + update()
     + draw(canvas: Canvas)
 }
 
+class HorizontalPipe {
+    - pipeSpeedX: Float
+    - pipeSpeedY: Float
+    - lenght: Float
+    - opening: Float
+    - leftShape: RectF
+    - rightShape: RectF
+
+    + update()
+}
+
 class Pipe {
+    - upperShapeHeight: Float
+    - upperShape: RectF
+    - lowerShape: RectF
+
+    + update()
 }
 
 class PipeMoving {
-}
-
-class Score {
-    - yourScore: Int
+    - upperShapeHeight: Float
+    - pipeSpeedY: Float
+    - inverter: Float
+    - upperShape: RectF
+    - lowerShape: RectF
 
     + update()
-    + draw(canvas: Canvas, paint: Paint)
+}
+
+interface Drawable {
+    + draw(canvas: Canvas)
+}
+
+interface Updatable {
+    + update()
+}
+
+interface Observable {
+    + addObserver(observer: GameObserver)
+    + removeObserver(observer: GameObserver)
+    + notifyObservers()
+}
+
+interface GameObserver {
+    + onScoreChanged(score: Int)
+    + onGameOver()
 }
 
 class ScoreObserver {
@@ -58,18 +141,20 @@ class ScoreObserver {
     + onGameOver()
 }
 
-class GameRun {
-    - allObjects: AllObjects
-
-    + run()
-}
-
 GameView --> AllObjects
 AllObjects --> Bird
 AllObjects --> Score
 AllObjects --> Obstacle
+AllObjects --> ScoreObserver
+GameObject <|-- Bird
+GameObject <|-- Score
+Obstacle <|-- HorizontalPipe
 Obstacle <|-- Pipe
 Obstacle <|-- PipeMoving
-AllObjects --> ScoreObserver
-GameRun --> AllObjects
+GameObject ..|> Drawable
+Obstacle ..|> Drawable
+Obstacle ..|> Updatable
+Bird ..|> Updatable
+ScoreObserver --> GameObserver
+Score ..|> Observable
 @enduml

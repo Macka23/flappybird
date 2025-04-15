@@ -4,10 +4,13 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
 import com.example.flappybird.Constants.Constants
+import com.example.flappybird.Interfaces.Drawable
+import com.example.flappybird.Interfaces.Updatable
 
-abstract class Obstacle {
-    var x_pos = Constants.screenWidth
-    var y_pos = 0f
+abstract class Obstacle: Updatable {
+    var pipeSpeedX = 5f
+    var Xpos = Constants.screenWidth
+    var Ypos = 0f
     open val width : Float = 100f
     private val paint = Paint()
     protected var color = 0
@@ -20,5 +23,4 @@ abstract class Obstacle {
             canvas.drawRect(shape, paint)
         }
     }
-    abstract fun update()
 }

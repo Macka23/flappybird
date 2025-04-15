@@ -6,11 +6,11 @@ import com.example.flappybird.Activities.GameOverActivity
 import com.example.flappybird.Constants.Constants
 import com.example.flappybird.GameObjects.AllObjects
 
-class GameRun(val allObjects: AllObjects) {
+class GameRun(private val allObjects: AllObjects) {
     private var previousFrameTime: Long = 0
     private var gameMode : PipeType = PipeType.STATIC
 
-    open fun run(){
+    fun run(){
         val currentTime = System.currentTimeMillis()
         val elapsedTimeMS: Double = (currentTime - previousFrameTime).toDouble()
 
@@ -25,22 +25,22 @@ class GameRun(val allObjects: AllObjects) {
             allObjects.bird.update(elapsedTimeMS.toInt())
         }
         if (gameMode == PipeType.STATIC || gameMode == PipeType.MOVING) {
-            if (allObjects.ListOfPipes.last().x_pos < allObjects.bird.x) {
+            if (allObjects.ListOfPipes.last().Xpos < allObjects.bird.x) {
                 createPipe()
                 allObjects.score.update(elapsedTimeMS.toInt())
             }
 
 
-            if (allObjects.ListOfPipes.first().x_pos + allObjects.ListOfPipes.first().width < 0) {
+            if (allObjects.ListOfPipes.first().Xpos + allObjects.ListOfPipes.first().width < 0) {
                 allObjects.ListOfPipes.removeAt(0)
             }
         }
         else if (gameMode == PipeType.BLOC) {
-            if (allObjects.ListOfPipes.last().y_pos > allObjects.bird.y) {
+            if (allObjects.ListOfPipes.last().Ypos > allObjects.bird.y) {
                 createPipe()
                 allObjects.score.update(elapsedTimeMS.toInt())
             }
-            if (allObjects.ListOfPipes.first().y_pos + allObjects.ListOfPipes.first().width > Constants.screenHeight) {
+            if (allObjects.ListOfPipes.first().Ypos + allObjects.ListOfPipes.first().width > Constants.screenHeight) {
                 allObjects.ListOfPipes.removeAt(0)
             }
         }

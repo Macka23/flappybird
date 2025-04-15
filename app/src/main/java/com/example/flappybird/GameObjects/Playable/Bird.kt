@@ -5,13 +5,14 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import com.example.flappybird.GameObjects.GameObject
+import com.example.flappybird.Interfaces.Drawable
+import com.example.flappybird.Interfaces.Updatable
 
 class Bird(x: Float, y: Float) : GameObject(x, y, 60f, 60f) {
     private val gravity = 0.05f
     private val jumpPower = 0.1f
     private val offsetHitbox = 10
     var ascendingState = false
-    private val acceleration = 0.01f // Accélération constante
     var oldY = y
 
     init {
