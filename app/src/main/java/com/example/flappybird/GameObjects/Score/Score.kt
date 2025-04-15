@@ -6,6 +6,7 @@ import android.graphics.Paint
 import com.example.flappybird.GameObjects.GameObject
 import com.example.flappybird.Interfaces.GameObserver
 import com.example.flappybird.Interfaces.Observable
+import com.example.flappybird.Interfaces.Updatable
 
 object Score : GameObject(x = 50f, y = 140f, width = 0f, height = 0f), Observable {
     var yourScore = 0

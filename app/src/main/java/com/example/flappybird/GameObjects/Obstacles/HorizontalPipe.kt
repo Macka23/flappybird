@@ -2,11 +2,9 @@ package com.example.flappybird.GameObjects.Obstacles
 
 import android.graphics.Color
 import android.graphics.RectF
-import android.graphics.drawable.shapes.Shape
 import com.example.flappybird.Constants.Constants
 
-class RandomBlocs: Obstacle() {
-    private val pipe_speed_x = 2f
+class HorizontalPipe: Obstacle() {
     private val pipeSpeedY = 5f
     private val lenght = 200f + (0..800).random()
     private val opening = 200f + (0..300).random()
@@ -21,10 +19,10 @@ class RandomBlocs: Obstacle() {
     }
 
     override fun update() {
-        y_pos += pipeSpeedY
+        Ypos += pipeSpeedY
 
         for (shape in allShapesForOnePipe){
-            shape.offset(-pipe_speed_x, pipeSpeedY)
+            shape.offset(-pipeSpeedX/2, pipeSpeedY)
         }
     }
 }

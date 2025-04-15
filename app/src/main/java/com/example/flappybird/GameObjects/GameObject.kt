@@ -4,9 +4,9 @@ import android.graphics.RectF
 import com.example.flappybird.Constants.Constants
 import com.example.flappybird.Interfaces.Drawable
 import com.example.flappybird.GameObjects.Obstacles.Obstacle
+import com.example.flappybird.Interfaces.Updatable
 
-abstract class GameObject(var x: Float, var y: Float, protected var width: Float, protected var height: Float) :
-    Drawable {
+abstract class GameObject(var x: Float, var y: Float, protected var width: Float, protected var height: Float): Drawable {
     lateinit var bodyObject : RectF
 
     abstract fun update(time: Int)
