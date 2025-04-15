@@ -5,10 +5,13 @@ import android.os.SystemClock
 import com.example.flappybird.Activities.GameOverActivity
 import com.example.flappybird.Constants.Constants
 import com.example.flappybird.GameObjects.AllObjects
+import com.example.flappybird.GameStateManager
+
 
 class GameRun(private val allObjects: AllObjects) {
     private var previousFrameTime: Long = 0
     private var gameMode : PipeType = PipeType.STATIC
+    private val stateManager = GameStateManager()
 
     fun run(){
         val currentTime = System.currentTimeMillis()
@@ -70,14 +73,9 @@ class GameRun(private val allObjects: AllObjects) {
     }
 
     private fun createPipe(){
-        if (allObjects.score.yourScore >= 3){
-            gameMode = PipeType.MOVING
-        }
-        if (allObjects.score.yourScore >= 9){
-            gameMode = PipeType.BLOC
-        }
-
-        allObjects.ListOfPipes.add(PipeFactory.createPipe(gameMode))
-
+        stateManager.updateState(allObjects.score.yourScore)
+        val pipeType = stateManager.getPipeType()
+        allObjects.ListOfPipes.add(PipeFactory.createPipe(pipeType))
     }
+
 }
