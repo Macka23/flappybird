@@ -1,5 +1,5 @@
 @startuml
-' Diagramme UML des classes du projet FlappyBird
+' Diagramme UML des classes du projet FlappyBird (réorganisé)
 
 class GameView {
     "constuctor" GameView(context: Context, attributes: AttributeSet?, defStyleAttr: Int)
@@ -19,7 +19,7 @@ class GameView {
 class AllObjects {
     "constuctor" AllObjects (context: Context, var canvas: Canvas, holder: SurfaceHolder)
     + bird: Bird
-    + ListOfPipes: MutableList<Pipe>()
+    + ListOfPipes: MutableList<Pipe>
     + score: Score
     - scoreObserver: ScoreObserver
 }
@@ -46,7 +46,6 @@ class GameDisplay {
 abstract class GameObject {
     "constuctor" GameObject(var x: Float, var y: Float, protected var width: Float, protected var height: Float)
 
-    + update(time: Int)
     + returnCollision(obstacle: Obstacle): Boolean
 }
 
@@ -58,7 +57,6 @@ class Bird {
     - jumpPower: Float
     - offsetHitbox: Float
 
-    + update(time: Int)
     -updateHitBox()
 }
 
@@ -67,7 +65,6 @@ class Score {
     - textPaint: Paint
     - observers: MutableList<GameObserver>
 
-    + update(t: Int)
     + clearObservers()
 }
 
@@ -109,7 +106,7 @@ class StaticPipe {
     - upperShapeHeight
 }
 
-class PipeFactory{
+class PipeFactory {
     + createPipe(type: PipeType): Pipe
 }
 
@@ -136,7 +133,7 @@ class GameStateManager {
     + getPipeType(): PipeType
 }
 
-abstract class State{
+abstract class State {
 }
 
 class EasyState {
@@ -147,7 +144,6 @@ class MediumState {
 
 class HardState {
 }
-
 
 interface Drawable {
     + draw(canvas: Canvas, paint: Paint)
@@ -172,10 +168,10 @@ interface GameState {
     + getPipeType(): PipeType
 }
 
-
-GameDisplay --* GameView
-GameRun --* GameView
-AllObjects --* GameView
+' Relations entre les classes et interfaces
+GameDisplay -left-* GameView
+GameRun -right-* GameView
+AllObjects -up-* GameView
 
 Obstacle <|-- Pipe
 Pipe <|-- HorizontalPipe
@@ -197,7 +193,6 @@ AllObjects *-- Bird
 AllObjects *-- "1" Score
 AllObjects *-- "1..n" Pipe
 AllObjects *-- ScoreObserver
-
 
 Observable <.. Score
 GameObserver <.. ScoreObserver
