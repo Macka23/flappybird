@@ -16,7 +16,7 @@ class HorizontalPipe: Pipe() {
         color = Color.BLACK
     }
 
-    override fun update() {
+    override fun update(t: Int?) {
         Ypos += pipeSpeedY
 
         for (shape in allShapesForOneObstacle){

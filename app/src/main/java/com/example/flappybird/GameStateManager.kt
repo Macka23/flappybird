@@ -1,15 +1,14 @@
 package com.example.flappybird
 
-import com.example.flappybird.GameStates.GameState
 import com.example.flappybird.Views.PipeType
 
 class GameStateManager {
-    private var currentState: GameState = EasyState()
+    private var currentState: State = EasyState()
 
     fun updateState(score: Int) {
         currentState = when {
             score >= 9 -> HardState()
-            score >= 3 -> MediumState()
+            score >= 3 && score < 9 -> MediumState()
             else -> EasyState()
         }
     }

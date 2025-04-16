@@ -13,7 +13,7 @@ open class GameView @JvmOverloads constructor (context: Context, attributes: Att
     private var drawing = false
     private var canvas = Canvas()
 
-    private var allObjects : AllObjects = AllObjects(context, canvas, holder)
+    private var allObjects  = AllObjects(context, canvas, holder)
     private var gameRun = GameRun(allObjects)
     private var gameDisplay = GameDisplay(allObjects)
 

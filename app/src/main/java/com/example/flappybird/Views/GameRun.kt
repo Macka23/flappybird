@@ -19,7 +19,7 @@ class GameRun(private val allObjects: AllObjects) {
 
         if (elapsedTimeMS > 10){
             for (pipe in allObjects.ListOfPipes) {
-                pipe.update()
+                pipe.update(0)
             }
             previousFrameTime = currentTime
         }
@@ -30,7 +30,7 @@ class GameRun(private val allObjects: AllObjects) {
         if (gameMode == PipeType.STATIC || gameMode == PipeType.MOVING) {
             if (allObjects.ListOfPipes.last().Xpos < allObjects.bird.x) {
                 createPipe()
-                allObjects.score.update(elapsedTimeMS.toInt())
+                allObjects.score.update(0)
             }
 
 

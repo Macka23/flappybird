@@ -13,7 +13,7 @@ object Score : GameObject(x = 50f, y = 140f, width = 0f, height = 0f), Observabl
     private val textPaint = Paint()
     private val observers = mutableListOf<GameObserver>()
 
-    override fun update(t: Int) {
+    override fun update(t: Int?) {
         yourScore += 1
         notifyObservers()
     }

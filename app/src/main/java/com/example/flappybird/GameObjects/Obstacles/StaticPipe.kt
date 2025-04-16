@@ -15,7 +15,7 @@ class StaticPipe : Pipe() {
         color = Color.GREEN
     }
 
-    override fun update() {
+    override fun update(t: Int?) {
         Xpos -= pipeSpeedX
         for (shape in allShapesForOneObstacle){
             shape.offset(-pipeSpeedX, 0f)

@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import com.example.flappybird.GameObjects.GameObject
+import com.example.flappybird.Interfaces.Updatable
 import com.example.flappybird.Views.SkinManager
 
 class Bird(x: Float, y: Float) : GameObject(x, y, 60f, 60f) {
@@ -18,16 +19,18 @@ class Bird(x: Float, y: Float) : GameObject(x, y, 60f, 60f) {
         bodyObject = RectF(x - width + offsetHitbox, y - height + offsetHitbox, x + width - offsetHitbox, y + height - offsetHitbox)
     }
 
-    override fun update(time: Int) {
-        if (ascendingState && y > oldY - 200) {
-            y -= jumpPower * time * time / 2
-        } else {
-            ascendingState = false
-            oldY = y
-            y += (gravity) * time * time / 2
-        }
+    override fun update(t: Int?) {
+        t?.let {
+            if (ascendingState && y > oldY - 200) {
+                y -= jumpPower * it * it / 2
+            } else {
+                ascendingState = false
+                oldY = y
+                y += (gravity) * it * it / 2
+            }
 
-        updateHitbox()
+            updateHitbox()
+        }
     }
 
     private fun updateHitbox() {

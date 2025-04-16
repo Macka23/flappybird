@@ -29,11 +29,11 @@ class GameRun {
     - previousFrameTime: Long
     - gameMode: PipeType
 
+    + setTime()
+    + run()
     -gameOver()
     -returnEndGame():Boolean
     -createPipe()
-    + setTime()
-    + run()
 }
 
 class GameDisplay {
@@ -58,9 +58,8 @@ class Bird {
     - jumpPower: Float
     - offsetHitbox: Float
 
-    -updateHitBox()
     + update(time: Int)
-    + draw(canvas: Canvas, paint: Paint)
+    -updateHitBox()
 }
 
 class Score {
@@ -69,10 +68,6 @@ class Score {
     - observers: MutableList<GameObserver>
 
     + update(t: Int)
-    + draw(canvas: Canvas, paint: Paint)
-    + addObserver(observer: GameObserver)
-    + removeObserver(observer: GameObserver)
-    + notifyObservers()
     + clearObservers()
 }
 
@@ -87,10 +82,7 @@ class ScoreObserver {
 
 abstract class Obstacle {
     + allShapesForOneObstacle: ArrayList<RectF>
-    - paint: Paint
     # color: Int
-
-    + draw(canvas: Canvas)
 }
 
 abstract class Pipe {
@@ -106,21 +98,25 @@ abstract class Pipe {
 class HorizontalPipe {
     - lenght: Float
     - opening: Float
-
-    + update()
 }
 
 class PipeMoving {
     - upperShapeHeight: Float
     - inverter: Float
-
-    + update()
 }
 
 class StaticPipe {
     - upperShapeHeight
+}
 
-    + update()
+class PipeFactory{
+    + createPipe(type: PipeType): Pipe
+}
+
+enum PipeType {
+    STATIC
+    MOVING
+    BLOC
 }
 
 class SkinManager {
@@ -140,25 +136,25 @@ class GameStateManager {
     + getPipeType(): PipeType
 }
 
+abstract class State{
+}
+
 class EasyState {
-    + getPipeType(): PipeType
 }
 
 class MediumState {
-    + getPipeType(): PipeType
 }
 
 class HardState {
-    + getPipeType(): PipeType
 }
 
 
 interface Drawable {
-    + draw(canvas: Canvas)
+    + draw(canvas: Canvas, paint: Paint)
 }
 
 interface Updatable {
-    + update()
+    + update(t: Int?)
 }
 
 interface Observable {
@@ -176,29 +172,42 @@ interface GameState {
     + getPipeType(): PipeType
 }
 
-' Relations entre les classes et interfaces
-GameView --> AllObjects
-GameView --> GameRun
-GameView --> GameDisplay
-AllObjects --> Bird
-AllObjects --> Score
-AllObjects --> Obstacle
-AllObjects --> ScoreObserver
+
+GameDisplay --* GameView
+GameRun --* GameView
+AllObjects --* GameView
+
+Obstacle <|-- Pipe
+Pipe <|-- HorizontalPipe
+Pipe <|-- PipeMoving
+Pipe <|-- StaticPipe
+Updatable <.. Pipe
+Drawable <.. Obstacle
+
+PipeFactory --> Pipe
+PipeFactory <-- GameRun
+PipeFactory ..> PipeType
+
 GameObject <|-- Bird
 GameObject <|-- Score
-Obstacle <|-- HorizontalPipe
-Obstacle <|-- Pipe
-Obstacle <|-- PipeMoving
-Obstacle <|-- StaticPipe
-GameObject ..|> Drawable
-Obstacle ..|> Drawable
-Obstacle ..|> Updatable
-Bird ..|> Updatable
-ScoreObserver --> GameObserver
-Score ..|> Observable
-GameStateManager --> GameState
-GameState <|-- EasyState
-GameState <|-- MediumState
-GameState <|-- HardState
+Drawable <.. GameObject
+Updatable <.. GameObject
+
+AllObjects *-- Bird
+AllObjects *-- "1" Score
+AllObjects *-- "1..n" Pipe
+AllObjects *-- ScoreObserver
+
+
+Observable <.. Score
+GameObserver <.. ScoreObserver
+
+SkinManager <-- Bird
+
+GameRun *-- State
+State <|-- EasyState
+State <|-- MediumState
+State <|-- HardState
+GameState <.. State
 
 @enduml

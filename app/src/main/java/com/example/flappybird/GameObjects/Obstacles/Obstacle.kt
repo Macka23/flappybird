@@ -3,13 +3,13 @@ package com.example.flappybird.GameObjects.Obstacles
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
+import com.example.flappybird.Interfaces.Drawable
 
-abstract class Obstacle {
+abstract class Obstacle: Drawable {
     var allShapesForOneObstacle = ArrayList<RectF>()
-    private val paint = Paint()
     protected var color = 0
 
-    fun draw(canvas: Canvas){
+    override fun draw(canvas: Canvas, paint: Paint){
         paint.color = color
         for (shape in allShapesForOneObstacle){
             canvas.drawRect(shape, paint)

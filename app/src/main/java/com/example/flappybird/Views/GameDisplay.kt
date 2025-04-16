@@ -15,7 +15,7 @@ class GameDisplay(val allObjects : AllObjects) {
             allObjects.canvas.drawColor(Color.CYAN)
             allObjects.bird.draw(allObjects.canvas, paint)
             for (pipe in allObjects.ListOfPipes) {
-                pipe.draw(allObjects.canvas)
+                pipe.draw(allObjects.canvas, paint)
             }
             allObjects.score.draw(allObjects.canvas, paint)
 
