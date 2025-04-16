@@ -21,11 +21,11 @@ class AllObjects {
     + bird: Bird
     + ListOfPipes: MutableList<Pipe>()
     + score: Score
-    + scoreObserver: ScoreObserver
+    - scoreObserver: ScoreObserver
 }
 
 class GameRun {
-    - allObjects: AllObjects
+    "constuctor" GameRun(private val allObjects: AllObjects)
     - previousFrameTime: Long
     - gameMode: PipeType
 
@@ -37,26 +37,26 @@ class GameRun {
 }
 
 class GameDisplay {
-    - allObjects: AllObjects
+    "constuctor" GameDisplay(val allObjects : AllObjects)
     - paint: Paint
+
     + draw()
 }
 
 abstract class GameObject {
-    + x: Float
-    + y: Float
-    # width: Float
-    # height: Float
+    "constuctor" GameObject(var x: Float, var y: Float, protected var width: Float, protected var height: Float)
 
     + update(time: Int)
     + returnCollision(obstacle: Obstacle): Boolean
 }
 
 class Bird {
+    "constuctor" Bird(x: Float, y: Float)
     + ascendingState: Boolean
     + oldY: Float
     - gravity: Float
     - jumpPower: Float
+    - offsetHitbox: Float
 
     -updateHitBox()
     + update(time: Int)
@@ -76,22 +76,31 @@ class Score {
     + clearObservers()
 }
 
+class ScoreObserver {
+    "constuctor" ScoreObserver(private val context: Context)
+    - mediaPlayer: MediaPlayer
+
+    + onScoreChanged(score: Int)
+    + onGameOver()
+    - playSound()
+}
+
 abstract class Obstacle {
+    + allShapesForOneObstacle: ArrayList<RectF>
+    - paint: Paint
+    # color: Int
+
+    + draw(canvas: Canvas)
+}
+
+abstract class Pipe {
     + Xpos: Float
     + Ypos: Float
     + width: Float
-    + allShapesForOnePipe: ArrayList<RectF>
-    + pipeSpeedX: Float
-    -paint: Paint
     # lowerShape: RectF
     # upperShape: RectF
     # pipeSpeedY: Float
     # pipeSpeedX: Float
-    # color: Int
-
-
-    + update()
-    + draw(canvas: Canvas)
 }
 
 class HorizontalPipe {
@@ -101,23 +110,48 @@ class HorizontalPipe {
     + update()
 }
 
-class Pipe {
-    - upperShapeHeight: Float
-    - upperShape: RectF
-    - lowerShape: RectF
-
-    + update()
-}
-
 class PipeMoving {
     - upperShapeHeight: Float
-    - pipeSpeedY: Float
     - inverter: Float
-    - upperShape: RectF
-    - lowerShape: RectF
 
     + update()
 }
+
+class StaticPipe {
+    - upperShapeHeight
+
+    + update()
+}
+
+class SkinManager {
+    - skinColors: List<Int>
+    - selectedIndex: Int
+
+    + getSkin(index: Int)
+    + getCurrentColor(): Int
+    + getAvailableColor(): List<Int>
+    + getCurrentIndex(): Int
+}
+
+class GameStateManager {
+    - currentState: GameState
+
+    + updateState(score: Int)
+    + getPipeType(): PipeType
+}
+
+class EasyState {
+    + getPipeType(): PipeType
+}
+
+class MediumState {
+    + getPipeType(): PipeType
+}
+
+class HardState {
+    + getPipeType(): PipeType
+}
+
 
 interface Drawable {
     + draw(canvas: Canvas)
@@ -138,14 +172,14 @@ interface GameObserver {
     + onGameOver()
 }
 
-class ScoreObserver {
-    - mediaPlayer: MediaPlayer?
-
-    + onScoreChanged(score: Int)
-    + onGameOver()
+interface GameState {
+    + getPipeType(): PipeType
 }
 
+' Relations entre les classes et interfaces
 GameView --> AllObjects
+GameView --> GameRun
+GameView --> GameDisplay
 AllObjects --> Bird
 AllObjects --> Score
 AllObjects --> Obstacle
@@ -155,10 +189,16 @@ GameObject <|-- Score
 Obstacle <|-- HorizontalPipe
 Obstacle <|-- Pipe
 Obstacle <|-- PipeMoving
+Obstacle <|-- StaticPipe
 GameObject ..|> Drawable
 Obstacle ..|> Drawable
 Obstacle ..|> Updatable
 Bird ..|> Updatable
 ScoreObserver --> GameObserver
 Score ..|> Observable
+GameStateManager --> GameState
+GameState <|-- EasyState
+GameState <|-- MediumState
+GameState <|-- HardState
+
 @enduml

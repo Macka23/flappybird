@@ -16,9 +16,3 @@ class PipeFactory {
         }
     }
 }
-
-enum class PipeType {
-    STATIC,
-    MOVING,
-    BLOC
-}

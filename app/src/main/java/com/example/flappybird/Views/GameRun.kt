@@ -24,7 +24,7 @@ class GameRun(private val allObjects: AllObjects) {
             previousFrameTime = currentTime
         }
 
-        if (SystemClock.currentThreadTimeMillis() > 200) {
+        if (SystemClock.currentThreadTimeMillis() > 100) {
             allObjects.bird.update(elapsedTimeMS.toInt())
         }
         if (gameMode == PipeType.STATIC || gameMode == PipeType.MOVING) {

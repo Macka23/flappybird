@@ -12,7 +12,6 @@ class Bird(x: Float, y: Float) : GameObject(x, y, 60f, 60f) {
     private val jumpPower = 0.1f
     private val offsetHitbox = 10
     var ascendingState = false
-    private val acceleration = 0.01f // Accélération constante
     var oldY = y
 
     init {
@@ -20,7 +19,7 @@ class Bird(x: Float, y: Float) : GameObject(x, y, 60f, 60f) {
     }
 
     override fun update(time: Int) {
-        if (ascendingState && y > oldY - 300) {
+        if (ascendingState && y > oldY - 200) {
             y -= jumpPower * time * time / 2
         } else {
             ascendingState = false
