@@ -4,17 +4,15 @@ import android.graphics.Color
 import android.graphics.RectF
 import com.example.flappybird.Constants.Constants
 
-class PipeMoving: Obstacle() {
+class PipeMoving: Pipe() {
     private val upperShapeHeight = 200f + (0..600).random()
-    private val pipeSpeedY = 5f
     private var inverter = listOf(-1, 1).random().toFloat()
 
-    private val upperShape = RectF(Xpos, -(pipeSpeedY * 25), Xpos + width,  upperShapeHeight)
-    private val lowerShape = RectF(Xpos, upperShapeHeight + 500, Xpos + width,  Constants.screenHeight + (pipeSpeedY * 25))
-
     init {
-        allShapesForOnePipe.add(upperShape)
-        allShapesForOnePipe.add(lowerShape)
+        upperShape = RectF(Xpos, -(pipeSpeedY * 25), Xpos + width,  upperShapeHeight)
+        lowerShape = RectF(Xpos, upperShapeHeight + 500, Xpos + width,  Constants.screenHeight + (pipeSpeedY * 25))
+        allShapesForOneObstacle.add(upperShape)
+        allShapesForOneObstacle.add(lowerShape)
         color = Color.RED
     }
 
@@ -24,7 +22,7 @@ class PipeMoving: Obstacle() {
             inverter = -inverter
         }
 
-        for (shape in allShapesForOnePipe){
+        for (shape in allShapesForOneObstacle){
             shape.offset(-pipeSpeedX, pipeSpeedY * inverter)
         }
     }

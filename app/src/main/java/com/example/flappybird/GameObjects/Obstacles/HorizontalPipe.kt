@@ -4,24 +4,22 @@ import android.graphics.Color
 import android.graphics.RectF
 import com.example.flappybird.Constants.Constants
 
-class HorizontalPipe: Obstacle() {
-    private val pipeSpeedY = 5f
+class HorizontalPipe: Pipe() {
     private val lenght = 200f + (0..800).random()
     private val opening = 200f + (0..300).random()
 
-    private val leftShape = RectF(0f, 0f,lenght, width)
-    private val rightShape = RectF(lenght + opening, 0f, Constants.screenWidth + 2000, width)
-
     init {
-        allShapesForOnePipe.add(leftShape)
-        allShapesForOnePipe.add(rightShape)
+        upperShape = RectF(0f, 0f,lenght, width)
+        lowerShape = RectF(lenght + opening, 0f, Constants.screenWidth + 2000, width)
+        allShapesForOneObstacle.add(upperShape)
+        allShapesForOneObstacle.add(lowerShape)
         color = Color.BLACK
     }
 
     override fun update() {
         Ypos += pipeSpeedY
 
-        for (shape in allShapesForOnePipe){
+        for (shape in allShapesForOneObstacle){
             shape.offset(-pipeSpeedX/2, pipeSpeedY)
         }
     }

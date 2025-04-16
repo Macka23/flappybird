@@ -1,15 +1,15 @@
 package com.example.flappybird.Views
 
-import com.example.flappybird.GameObjects.Obstacles.Obstacle
 import com.example.flappybird.GameObjects.Obstacles.Pipe
+import com.example.flappybird.GameObjects.Obstacles.StaticPipe
 import com.example.flappybird.GameObjects.Obstacles.PipeMoving
 import com.example.flappybird.GameObjects.Obstacles.HorizontalPipe
 
 class PipeFactory {
     companion object {
-        fun createPipe(type: PipeType): Obstacle {
+        fun createPipe(type: PipeType): Pipe {
             return when (type) {
-                PipeType.STATIC -> Pipe()
+                PipeType.STATIC -> StaticPipe()
                 PipeType.MOVING -> PipeMoving()
                 PipeType.BLOC -> HorizontalPipe()
             }

@@ -3,16 +3,15 @@ package com.example.flappybird.GameObjects
 import android.graphics.RectF
 import com.example.flappybird.Constants.Constants
 import com.example.flappybird.Interfaces.Drawable
-import com.example.flappybird.GameObjects.Obstacles.Obstacle
-import com.example.flappybird.Interfaces.Updatable
+import com.example.flappybird.GameObjects.Obstacles.Pipe
 
 abstract class GameObject(var x: Float, var y: Float, protected var width: Float, protected var height: Float): Drawable {
     lateinit var bodyObject : RectF
 
     abstract fun update(time: Int)
 
-    fun returnCollision(obstacle: Obstacle): Boolean{
-        for (shape in obstacle.allShapesForOnePipe){
+    fun returnCollision(pipe: Pipe): Boolean{
+        for (shape in pipe.allShapesForOneObstacle){
             if (bodyObject.intersect(shape)) {
                 return true
             }

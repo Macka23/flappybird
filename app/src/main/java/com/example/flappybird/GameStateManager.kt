@@ -1,9 +1,6 @@
 package com.example.flappybird
 
 import com.example.flappybird.GameStates.GameState
-import com.example.flappybird.GameStates.EasyState
-import com.example.flappybird.GameStates.MediumState
-import com.example.flappybird.GameStates.HardState
 import com.example.flappybird.Views.PipeType
 
 class GameStateManager {

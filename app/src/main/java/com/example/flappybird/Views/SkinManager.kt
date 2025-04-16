@@ -8,7 +8,7 @@ object SkinManager {
         Color.GREEN,
         Color.BLUE,
         Color.YELLOW,
-        Color.CYAN,
+        Color.BLACK,
         Color.MAGENTA
     )
 

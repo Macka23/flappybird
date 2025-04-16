@@ -19,7 +19,7 @@ class GameView {
 class AllObjects {
     "constuctor" AllObjects (context: Context, var canvas: Canvas, holder: SurfaceHolder)
     + bird: Bird
-    + ListOfPipes: MutableList<Obstacle>()
+    + ListOfPipes: MutableList<Pipe>()
     + score: Score
     + scoreObserver: ScoreObserver
 }
@@ -77,22 +77,26 @@ class Score {
 }
 
 abstract class Obstacle {
-    - Xpos: Float
-    - Ypos: Float
-    - width: Float
-    - allShapesForOnePipe: ArrayList<RectF>
+    + Xpos: Float
+    + Ypos: Float
+    + width: Float
+    + allShapesForOnePipe: ArrayList<RectF>
+    + pipeSpeedX: Float
+    -paint: Paint
+    # lowerShape: RectF
+    # upperShape: RectF
+    # pipeSpeedY: Float
+    # pipeSpeedX: Float
+    # color: Int
+
 
     + update()
     + draw(canvas: Canvas)
 }
 
 class HorizontalPipe {
-    - pipeSpeedX: Float
-    - pipeSpeedY: Float
     - lenght: Float
     - opening: Float
-    - leftShape: RectF
-    - rightShape: RectF
 
     + update()
 }
