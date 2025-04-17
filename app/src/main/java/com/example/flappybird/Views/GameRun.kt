@@ -58,6 +58,7 @@ class GameRun(private val allObjects: AllObjects) {
     }
 
     private fun gameOver(){
+        allObjects.score.notifyGameOver()
         val intent = Intent(allObjects.context, GameOverActivity::class.java)
         intent.putExtra("score", allObjects.score.yourScore)
         allObjects.context.startActivity(intent)

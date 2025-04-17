@@ -6,7 +6,6 @@ import android.graphics.Paint
 import com.example.flappybird.GameObjects.GameObject
 import com.example.flappybird.Interfaces.GameObserver
 import com.example.flappybird.Interfaces.Observable
-import com.example.flappybird.Interfaces.Updatable
 
 object Score : GameObject(x = 50f, y = 140f, width = 0f, height = 0f), Observable {
     var yourScore = 0
@@ -15,7 +14,6 @@ object Score : GameObject(x = 50f, y = 140f, width = 0f, height = 0f), Observabl
 
     override fun update(t: Int?) {
         yourScore += 1
-        notifyObservers()
     }
 
     override fun draw(canvas: Canvas, paint: Paint) {
@@ -39,10 +37,10 @@ object Score : GameObject(x = 50f, y = 140f, width = 0f, height = 0f), Observabl
         observers.remove(observer)
     }
 
-    override fun notifyObservers() {
+    override fun notifyGameOver() {
         for (observer in observers) {
-            println("notif")
-            observer.onScoreChanged(yourScore)
+            observer.onGameOver()
         }
     }
+
 }

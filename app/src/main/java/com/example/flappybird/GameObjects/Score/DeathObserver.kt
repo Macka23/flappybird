@@ -5,13 +5,9 @@ import android.media.MediaPlayer
 import com.example.flappybird.Interfaces.GameObserver
 import com.example.flappybird.R
 
-class ScoreObserver(private val context: Context) : GameObserver {
+class DeathObserver(private val context: Context) : GameObserver {
 
     private var mediaPlayer: MediaPlayer? = null
-
-    override fun onScoreChanged(score: Int) {
-        playSound()
-    }
 
     override fun onGameOver() {
         playSound()
@@ -19,7 +15,7 @@ class ScoreObserver(private val context: Context) : GameObserver {
 
     private fun playSound() {
         if (mediaPlayer == null) {
-            mediaPlayer = MediaPlayer.create(context, R.raw.score_sound)
+            mediaPlayer = MediaPlayer.create(context, R.raw.death_sound)
             mediaPlayer?.setOnCompletionListener {
                 mediaPlayer?.release()
                 mediaPlayer = null
