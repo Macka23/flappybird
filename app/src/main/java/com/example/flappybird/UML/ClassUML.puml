@@ -21,7 +21,7 @@ class AllObjects {
     + bird: Bird
     + ListOfPipes: MutableList<Pipe>
     + score: Score
-    - scoreObserver: ScoreObserver
+    - deathObserver: DeathObserver
 }
 
 class GameRun {
@@ -68,8 +68,8 @@ class Score {
     + clearObservers()
 }
 
-class ScoreObserver {
-    "constuctor" ScoreObserver(private val context: Context)
+class DeathObserver {
+    "constuctor" DeathObserver(private val context: Context)
     - mediaPlayer: MediaPlayer
 
     - playSound()
@@ -160,7 +160,6 @@ interface Observable {
 }
 
 interface GameObserver {
-    + onScoreChanged(score: Int)
     + onGameOver()
 }
 
@@ -192,10 +191,10 @@ Updatable <.. GameObject
 AllObjects *-- Bird
 AllObjects *-- "1" Score
 AllObjects *-- "1..n" Pipe
-AllObjects *-- ScoreObserver
+AllObjects *-- DeathObserver
 
 Observable <.. Score
-GameObserver <.. ScoreObserver
+GameObserver <.. DeathObserver
 
 SkinManager <-- Bird
 
