@@ -6,7 +6,7 @@ import com.example.flappybird.Interfaces.GameObserver
 import com.example.flappybird.R
 
 class DeathObserver(private val context: Context) : GameObserver {
-
+    //commentaire pour debug le push
     private var mediaPlayer: MediaPlayer? = null
 
     override fun onGameOver() {
