@@ -11,6 +11,12 @@ class HorizontalPipe: Pipe() {
     init {
         upperShape = RectF(0f, 0f,lenght, width)
         lowerShape = RectF(lenght + opening, 0f, Constants.screenWidth + 2000, width)
+
+        firstLip = RectF(lenght - width / 3, - width / 3, lenght, width + width/3 )
+        lastLip = RectF(lenght + opening, -width/3, lenght + opening + width/3, width + width/3)
+
+        allShapesForOneObstacle.add(firstLip)
+        allShapesForOneObstacle.add(lastLip)
         allShapesForOneObstacle.add(upperShape)
         allShapesForOneObstacle.add(lowerShape)
         color = Color.BLACK

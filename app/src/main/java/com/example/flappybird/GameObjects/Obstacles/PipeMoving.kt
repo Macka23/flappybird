@@ -12,6 +12,10 @@ class PipeMoving: Pipe() {
     init {
         upperShape = RectF(Xpos, -(pipeSpeedY * 25), Xpos + width,  upperShapeHeight)
         lowerShape = RectF(Xpos, upperShapeHeight + 500, Xpos + width,  Constants.screenHeight + (pipeSpeedY * 25))
+        firstLip = RectF(Xpos - width / 3, upperShapeHeight - width / 3, Xpos + width + width/3, upperShapeHeight)
+        lastLip = RectF(Xpos - width/3, upperShapeHeight + 500, Xpos + width + width/3, upperShapeHeight +500 + width/3)
+        allShapesForOneObstacle.add(firstLip)
+        allShapesForOneObstacle.add(lastLip)
         allShapesForOneObstacle.add(upperShape)
         allShapesForOneObstacle.add(lowerShape)
         color = Color.RED

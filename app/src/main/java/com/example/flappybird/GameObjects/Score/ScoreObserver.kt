@@ -18,13 +18,13 @@ class ScoreObserver(private val context: Context) : GameObserver {
     }
 
     private fun playSound() {
-        if (mediaPlayer == null) {
-            mediaPlayer = MediaPlayer.create(context, R.raw.score_sound)
-            mediaPlayer?.setOnCompletionListener {
-                mediaPlayer?.release()
-                mediaPlayer = null
-            }
-        }
-        mediaPlayer?.start()
+//        if (mediaPlayer == null) {
+//            mediaPlayer = MediaPlayer.create(context, R.raw.score_sound)
+//            mediaPlayer?.setOnCompletionListener {
+//                mediaPlayer?.release()
+//                mediaPlayer = null
+//            }
+//        }
+//        mediaPlayer?.start()
     }
 }
