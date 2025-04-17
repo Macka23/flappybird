@@ -11,6 +11,8 @@ abstract class Pipe: Obstacle(), Updatable {
     var Ypos = 0f
     protected lateinit var lowerShape: RectF
     protected lateinit var upperShape: RectF
+    protected lateinit var firstLip: RectF
+    protected lateinit var lastLip: RectF
     protected val pipeSpeedY = 5f
     protected var pipeSpeedX = 5f
     open val width : Float = 100f

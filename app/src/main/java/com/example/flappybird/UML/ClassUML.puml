@@ -72,8 +72,6 @@ class ScoreObserver {
     "constuctor" ScoreObserver(private val context: Context)
     - mediaPlayer: MediaPlayer
 
-    + onScoreChanged(score: Int)
-    + onGameOver()
     - playSound()
 }
 
@@ -88,6 +86,8 @@ abstract class Pipe {
     + width: Float
     # lowerShape: RectF
     # upperShape: RectF
+    # firstLip: RectF
+    # lastLip: RectF
     # pipeSpeedY: Float
     # pipeSpeedX: Float
 }

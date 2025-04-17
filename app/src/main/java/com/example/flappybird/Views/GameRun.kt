@@ -75,8 +75,8 @@ class GameRun(private val allObjects: AllObjects) {
 
     private fun createPipe(){
         stateManager.updateState(allObjects.score.yourScore)
-        val pipeType = stateManager.getPipeType()
-        allObjects.ListOfPipes.add(PipeFactory.createPipe(pipeType))
+        gameMode = stateManager.getPipeType()
+        allObjects.ListOfPipes.add(PipeFactory.createPipe(gameMode))
     }
 
 }
