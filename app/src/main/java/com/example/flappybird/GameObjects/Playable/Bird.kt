@@ -41,9 +41,9 @@ class Bird(x: Float, y: Float) : GameObject(x, y, 60f, 60f) {
         paint.color = SkinManager.getCurrentColor()
         canvas.drawCircle(x, y, width, paint)
         /* Hitbox testing */
-//        paint.style = Paint.Style.STROKE
-//        paint.color = Color.RED
-//        canvas.drawRect(bodyObject, paint)
-//        paint.style = Paint.Style.FILL
+        paint.style = Paint.Style.STROKE
+        paint.color = Color.RED
+        canvas.drawRect(bodyObject, paint)
+        paint.style = Paint.Style.FILL
     }
 }

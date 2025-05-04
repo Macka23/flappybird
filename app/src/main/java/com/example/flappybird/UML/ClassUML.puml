@@ -51,7 +51,7 @@ abstract class GameObject {
 
 class Bird {
     "constuctor" Bird(x: Float, y: Float)
-    + ascendingState: Boolean
+    + <ascendingState: Boolean>
     + oldY: Float
     - gravity: Float
     - jumpPower: Float
@@ -181,6 +181,8 @@ Drawable <.. Obstacle
 
 PipeFactory --> Pipe
 PipeFactory <-- GameRun
+GameRun -[hidden]-> PipeFactory
+
 PipeFactory ..> PipeType
 
 GameObject <|-- Bird
@@ -203,5 +205,7 @@ State <|-- EasyState
 State <|-- MediumState
 State <|-- HardState
 GameState <.. State
+GameStateManager --* GameRun
+GameStateManager -[hidden]-> GameView
 
 @enduml
