@@ -196,7 +196,7 @@ AllObjects *-- DeathObserver
 Observable <.. Score
 GameObserver <.. DeathObserver
 
-SkinManager <-- Bird
+SkinManager o-- Bird
 
 GameRun *-- State
 State <|-- EasyState

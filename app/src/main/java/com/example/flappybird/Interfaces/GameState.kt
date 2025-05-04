@@ -1,4 +1,4 @@
-package com.example.flappybird.GameStates
+package com.example.flappybird.Interfaces
 
 import com.example.flappybird.Views.PipeType
 

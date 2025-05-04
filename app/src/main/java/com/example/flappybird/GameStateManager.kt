@@ -8,7 +8,7 @@ class GameStateManager {
     fun updateState(score: Int) {
         currentState = when {
             score >= 9 -> HardState()
-            score >= 3 && score < 9 -> MediumState()
+            score >= 3  -> MediumState()
             else -> EasyState()
         }
     }
